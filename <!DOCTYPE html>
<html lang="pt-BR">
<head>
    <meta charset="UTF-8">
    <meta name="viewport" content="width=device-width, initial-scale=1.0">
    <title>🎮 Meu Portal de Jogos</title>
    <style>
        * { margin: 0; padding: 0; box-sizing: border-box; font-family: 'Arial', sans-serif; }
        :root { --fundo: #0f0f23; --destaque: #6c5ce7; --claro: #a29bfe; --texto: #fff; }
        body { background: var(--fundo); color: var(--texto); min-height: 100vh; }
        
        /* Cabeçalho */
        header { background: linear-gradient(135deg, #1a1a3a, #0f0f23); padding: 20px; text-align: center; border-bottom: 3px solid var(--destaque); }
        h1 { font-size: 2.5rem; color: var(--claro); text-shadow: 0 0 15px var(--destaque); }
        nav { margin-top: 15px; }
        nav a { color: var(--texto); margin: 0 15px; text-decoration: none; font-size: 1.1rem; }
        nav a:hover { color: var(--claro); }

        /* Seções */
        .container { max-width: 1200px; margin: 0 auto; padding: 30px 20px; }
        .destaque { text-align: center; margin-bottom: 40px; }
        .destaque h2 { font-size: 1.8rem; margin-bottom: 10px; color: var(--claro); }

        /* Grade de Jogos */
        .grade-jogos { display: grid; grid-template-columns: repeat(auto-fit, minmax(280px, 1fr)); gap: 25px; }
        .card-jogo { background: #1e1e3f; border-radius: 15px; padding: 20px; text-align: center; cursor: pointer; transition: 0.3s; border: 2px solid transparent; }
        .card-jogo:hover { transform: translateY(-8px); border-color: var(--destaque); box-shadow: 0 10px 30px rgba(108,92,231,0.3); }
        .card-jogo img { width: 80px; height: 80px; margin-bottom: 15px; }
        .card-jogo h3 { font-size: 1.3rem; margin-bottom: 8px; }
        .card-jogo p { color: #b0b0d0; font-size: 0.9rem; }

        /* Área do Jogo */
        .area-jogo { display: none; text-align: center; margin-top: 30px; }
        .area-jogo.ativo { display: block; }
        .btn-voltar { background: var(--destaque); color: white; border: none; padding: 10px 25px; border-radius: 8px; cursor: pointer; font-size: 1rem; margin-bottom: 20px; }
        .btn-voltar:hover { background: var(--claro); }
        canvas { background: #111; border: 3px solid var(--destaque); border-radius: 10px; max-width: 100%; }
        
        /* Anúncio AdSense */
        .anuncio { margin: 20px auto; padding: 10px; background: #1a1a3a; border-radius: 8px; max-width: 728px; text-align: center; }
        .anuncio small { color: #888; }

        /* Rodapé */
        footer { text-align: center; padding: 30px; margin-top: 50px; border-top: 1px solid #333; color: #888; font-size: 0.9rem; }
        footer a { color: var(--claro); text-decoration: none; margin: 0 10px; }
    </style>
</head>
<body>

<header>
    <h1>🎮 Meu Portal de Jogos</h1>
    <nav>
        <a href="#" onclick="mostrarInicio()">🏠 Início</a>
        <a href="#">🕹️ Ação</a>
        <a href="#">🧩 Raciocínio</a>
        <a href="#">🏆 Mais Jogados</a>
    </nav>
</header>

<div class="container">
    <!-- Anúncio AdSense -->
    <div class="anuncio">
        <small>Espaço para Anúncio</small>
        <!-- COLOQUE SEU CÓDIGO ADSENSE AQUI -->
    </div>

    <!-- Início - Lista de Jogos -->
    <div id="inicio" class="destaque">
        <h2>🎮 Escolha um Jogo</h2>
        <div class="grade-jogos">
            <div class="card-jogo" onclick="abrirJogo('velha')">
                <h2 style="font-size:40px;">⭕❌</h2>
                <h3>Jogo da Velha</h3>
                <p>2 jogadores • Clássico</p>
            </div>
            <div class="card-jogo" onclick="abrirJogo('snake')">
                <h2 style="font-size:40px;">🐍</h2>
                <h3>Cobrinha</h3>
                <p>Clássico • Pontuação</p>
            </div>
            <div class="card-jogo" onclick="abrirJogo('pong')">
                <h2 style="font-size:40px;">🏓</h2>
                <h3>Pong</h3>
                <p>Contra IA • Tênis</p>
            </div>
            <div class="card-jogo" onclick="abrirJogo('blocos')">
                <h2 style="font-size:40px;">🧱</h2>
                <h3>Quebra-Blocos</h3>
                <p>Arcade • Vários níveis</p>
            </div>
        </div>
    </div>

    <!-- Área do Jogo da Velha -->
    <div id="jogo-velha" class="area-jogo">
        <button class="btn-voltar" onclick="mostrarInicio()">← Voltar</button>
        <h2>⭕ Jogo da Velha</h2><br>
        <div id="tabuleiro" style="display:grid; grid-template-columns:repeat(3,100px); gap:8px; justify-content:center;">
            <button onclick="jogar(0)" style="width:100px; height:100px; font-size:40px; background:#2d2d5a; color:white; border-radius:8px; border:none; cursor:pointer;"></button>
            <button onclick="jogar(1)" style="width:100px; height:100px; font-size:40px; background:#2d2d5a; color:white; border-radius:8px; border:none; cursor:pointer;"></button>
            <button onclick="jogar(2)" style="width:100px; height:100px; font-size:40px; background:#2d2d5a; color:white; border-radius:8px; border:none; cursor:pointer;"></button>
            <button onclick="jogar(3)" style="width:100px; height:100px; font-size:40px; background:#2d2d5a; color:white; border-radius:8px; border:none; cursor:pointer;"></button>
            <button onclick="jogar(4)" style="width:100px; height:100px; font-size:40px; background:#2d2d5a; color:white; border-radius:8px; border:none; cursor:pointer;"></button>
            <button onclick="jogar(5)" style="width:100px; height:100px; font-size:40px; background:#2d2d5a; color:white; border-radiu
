@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Meu Portal de Jogos</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        :root { --fundo: #0f0f23; --destaque: #6c5ce7; --claro: #a29bfe; --texto: #fff; }
+        body { background: var(--fundo); color: var(--texto); min-height: 100vh; }
+        
+        /* Cabeçalho */
+        header { background: linear-gradient(135deg, #1a1a3a, #0f0f23); padding: 20px; text-align: center; border-bottom: 3px solid var(--destaque); }
+        h1 { font-size: 2.5rem; color: var(--claro); text-shadow: 0 0 15px var(--destaque); }
+        nav { margin-top: 15px; }
+        nav a { color: var(--texto); margin: 0 15px; text-decoration: none; font-size: 1.1rem; }
+        nav a:hover { color: var(--claro); }
+
+        /* Seções */
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+        .destaque { text-align: center; margin-bottom: 40px; }
+        .destaque h2 { font-size: 1.8rem; margin-bottom: 10px; color: var(--claro); }
+
+        /* Grade de Jogos */
+        .grade-jogos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card-jogo { background: #1e1e3f; border-radius: 15px; padding: 20px; text-align: center; cursor: pointer; transition: 0.3s; border: 2px solid transparent; }
+        .card-jogo:hover { transform: translateY(-8px); border-color: var(--destaque); box-shadow: 0 10px 30px rgba(108,92,231,0.3); }
+        .card-jogo img { width: 80px; height: 80px; margin-bottom: 15px; }
+        .card-jogo h3 { font-size: 1.3rem; margin-bottom: 8px; }
+        .card-jogo p { color: #b0b0d0; font-size: 0.9rem; }
+
+        /* Área do Jogo */
+        .area-jogo { display: none; text-align: center; margin-top: 30px; }
+        .area-jogo.ativo { display: block; }
+        .btn-voltar { background: var(--destaque); color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-bottom: 20px; }
+        .btn-voltar:hover { background: var(--claro); }
+        canvas { background: #111; border: 3px solid var(--destaque); border-radius: 10px; max-width: 100%; }
+        
+        /* Anúncio AdSense */
+        .anuncio { margin: 20px auto; padding: 10px; background: #1a1a3a; border-radius: 8px; max-width: 728px; text-align: center; }
+        .anuncio small { color: #888; }
+
+        /* Rodapé */
+        footer { text-align: center; padding: 30px; margin-top: 50px; border-top: 1px solid #333; color: #888; font-size: 0.9rem; }
+        footer a { color: var(--claro); text-decoration: none; margin: 0 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎮 Meu Portal de Jogos</h1>
+    <nav>
+        <a href="#" onclick="mostrarInicio()">🏠 Início</a>
+        <a href="#">🕹️ Ação</a>
+        <a href="#">🧩 Raciocínio</a>
+        <a href="#">🏆 Mais Jogados</a>
+    </nav>
+</header>
+
+<div class="container">
+    <!-- Anúncio AdSense -->
+    <div class="anuncio">
+        <small>Espaço para Anúncio</small>
+        <!-- COLOQUE SEU CÓDIGO ADSENSE AQUI -->
+    </div>
+
+    <!-- Início - Lista de Jogos -->
+    <div id="inicio" class="destaque">
+        <h2>🎮 Escolha um Jogo</h2>
+        <div class="grade-jogos">
+            <div class="card-jogo" onclick="abrirJogo('velha')">
+                <h2 style="font-size:40px;">⭕❌</h2>
+                <h3>Jogo da Velha</h3>
+                <p>2 jogadores • Clássico</p>
+            </div>
+            <div class="card-jogo" onclick="abrirJogo('snake')">
+                <h2 style="font-size:40px;">🐍</h2>
+                <h3>Cobrinha</h3>
+                <p>Clássico • Pontuação</p>
+            </div>
+            <div class="card-jogo" onclick="abrirJogo('pong')">
+                <h2 style="font-size:40px;">🏓</h2>
+                <h3>Pong</h3>
+                <p>Contra IA • Tênis</p>
+            </div>
+            <div class="card-jogo" onclick="abrirJogo('blocos')">
+                <h2 style="font-size:40px;">🧱</h2>
+                <h3>Quebra-Blocos</h3>
+                <p>Arcade • Vários níveis</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área do Jogo da Velha -->
+    <div id="jogo-velha" class="area-jogo">
+        <button class="btn-voltar" onclick="mostrarInicio()">← Voltar</button>
+        <h2>⭕ Jogo da Velha</h2><br>
+        <div id="tabuleiro" style="display:grid; grid-template-columns:repeat(3,100px); gap:8px; justify-content:center;">
+            <button onclick="jogar(0)" style="width:100px; height:100px; font-size:40px; background:#2d2d5a; color:white; border-radius:8px; border:none; cursor:pointer;"></button>
+            <button onclick="jogar(1)" style="width:100px; height:100px; font-size:40px; background:#2d2d5a; color:white; border-radius:8px; border:none; cursor:pointer;"></button>
+            <button onclick="jogar(2)" style="width:100px; height:100px; font-size:40px; background:#2d2d5a; color:white; border-radius:8px; border:none; cursor:pointer;"></button>
+            <button onclick="jogar(3)" style="width:100px; height:100px; font-size:40px; background:#2d2d5a; color:white; border-radius:8px; border:none; cursor:pointer;"></button>
+            <button onclick="jogar(4)" style="width:100px; height:100px; font-size:40px; background:#2d2d5a; color:white; border-radius:8px; border:none; cursor:pointer;"></button>
+            <button onclick="jogar(5)" style="width:100px; height:100px; font-size:40px; background:#2d2d5a; color:white; border-radiu
